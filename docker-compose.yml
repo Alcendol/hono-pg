@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:17.7-alpine3.23
+    environment: 
+      POSTGRES_PASSWORD: hono
+      POSTGRES_USER: hono
+      POSTGRES_DB: hono
+    ports:
+      - "5441:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - "8000:8080"
+
+volumes:
+  pgdata:
+    name: "pgdata"
